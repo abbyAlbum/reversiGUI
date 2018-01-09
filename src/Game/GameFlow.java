@@ -1,5 +1,7 @@
 package Game;
 
+import javafx.scene.paint.Color;
+
 import java.util.List;
 
 public class GameFlow {
@@ -13,9 +15,12 @@ public class GameFlow {
      * constructor for game flow
      * @param boardSize
      */
-    public GameFlow(int boardSize) {
+    public GameFlow(int boardSize, String playerOne, Color colorOne, Color colorTwo) {
         board_ = new Board(boardSize);
-        currentPlayer_ = 'X';
+        if (playerOne.equals("black"))
+            currentPlayer_ = 'X';
+        else
+            currentPlayer_ = 'O';
         logic_ = new BasicLogic(board_);
         turnsLeft_ = new int[2];
         turnsLeft_[0] = 0;
