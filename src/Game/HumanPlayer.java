@@ -1,3 +1,5 @@
+package Game;
+
 import java.util.List;
 
 public class HumanPlayer implements Player {
@@ -5,7 +7,7 @@ public class HumanPlayer implements Player {
     private char symbol_;
 
 /**
- * constructor for HumanPlayer.
+ * constructor for Game.HumanPlayer.
  * @param symbol
  */
     public HumanPlayer(char symbol) {
@@ -22,7 +24,7 @@ public class HumanPlayer implements Player {
             System.out.println("You have no possible moves, other player's turn.");
             return new Point(-1, -1);
         }
-        //Point p;
+        //Game.Point p;
         System.out.println("Please enter row and column (separated with space):");
         while (true) {
             //p = getValidInput();
@@ -45,12 +47,12 @@ public class HumanPlayer implements Player {
 //     * makes sure that we get only numbers
 //     * @return the player's choice
 //     */
-//    public Point getValidInput() {
+//    public Game.Point getValidInput() {
 //        Scanner sc = new Scanner(System.in);
 //        while (true) {
 //            int row = sc.nextInt();
 //            int col = sc.nextInt();
-//            return new Point(row, col);
+//            return new Game.Point(row, col);
 //            // user didn't input row and column
 //            System.out.println("Please enter numbers only." );
 //            cin.clear(); // reset failbit

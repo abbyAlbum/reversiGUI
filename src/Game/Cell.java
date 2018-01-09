@@ -1,15 +1,17 @@
+package Game;
+
 public class Cell{
 
     private char val_;
     private Point place_;
 
     /**
-     * constructor for Cell
+     * constructor for Game.Cell
      */
     public Cell() {}
 
     /**
-    * constructor for Cell
+    * constructor for Game.Cell
     * @param p point
     * @param val value
     */

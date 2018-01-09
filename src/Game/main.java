@@ -1,6 +1,8 @@
+package Game;
+
 public class main {
     /**
-     * main program.
+     * Game.main program.
      * @return 0
      */
     int main() {

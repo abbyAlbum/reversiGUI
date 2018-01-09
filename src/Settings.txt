@@ -1,0 +1,11 @@
+DEFAULT
+black
+black
+white
+8
+
+SETTINGS
+black
+black
+white
+8

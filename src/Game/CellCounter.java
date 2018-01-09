@@ -1,3 +1,5 @@
+package Game;
+
 public class CellCounter {
 
     private Board board_;
@@ -6,7 +8,7 @@ public class CellCounter {
     private int spaceCounter_;
 
     /**
-     * constructor for CellCounter
+     * constructor for Game.CellCounter
      * @param board
      */
     public CellCounter(Board board) {

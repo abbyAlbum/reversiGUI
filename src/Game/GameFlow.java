@@ -1,4 +1,5 @@
-import java.util.LinkedList;
+package Game;
+
 import java.util.List;
 
 public class GameFlow {
@@ -39,9 +40,9 @@ public class GameFlow {
             if ((turnsLeft_[0] == 1 && turnsLeft_[1] == 1) || cc.getSpaceCounter() == 0) break;
         }
         if (cc.getXCounter() > cc.getOCounter())
-            System.out.println("Player 1 wins with " + cc.getXCounter() + " tiles");
+            System.out.println("Game.Player 1 wins with " + cc.getXCounter() + " tiles");
         else
-            System.out.println("Player 2 wins with " + cc.getOCounter() + " tiles" );
+            System.out.println("Game.Player 2 wins with " + cc.getOCounter() + " tiles" );
     }
 
     /**

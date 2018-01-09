@@ -1,3 +1,5 @@
+package Game;
+
 public class Board {
 
 
@@ -5,7 +7,7 @@ public class Board {
     private int bSize;
 
     /**
-     * constructor for Board
+     * constructor for Game.Board
      * @param size of board
      */
     public Board(int size) {

@@ -1,3 +1,5 @@
+package Game;
+
 import java.util.Comparator;
 
 public class ComparePoint implements Comparator<Point> {

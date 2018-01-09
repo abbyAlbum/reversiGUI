@@ -1,10 +1,12 @@
+package Game;
+
 import java.util.*;
 
 public class BasicLogic implements GameLogic {
     private Board board_;
 
     /**
-     * constructor for BasicLogic
+     * constructor for Game.BasicLogic
      * @param board
      */
     public BasicLogic(Board board) {
@@ -27,9 +29,8 @@ public class BasicLogic implements GameLogic {
                 }
             }
         }
-        //List<Point> moves = possibleMoves;
+        //List<Game.Point> moves = possibleMoves;
         Collections.sort(possibleMoves, new ComparePoint());
-        // TODO find a way to do this
         Set<Point> pointSet = new HashSet<>(possibleMoves);
         List<Point> moves = new LinkedList<>(pointSet);
         //possibleMoves.erase(unique(possibleMoves.begin(), possibleMoves.end()), possibleMoves.end());

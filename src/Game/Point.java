@@ -1,3 +1,5 @@
+package Game;
+
 public class Point {
     //
 // Created by eyal moskowitz 314074303 on 02/11/17.
@@ -7,12 +9,12 @@ public class Point {
     private int y_;
 
     /**
-     * empty constructor for Point.
+     * empty constructor for Game.Point.
      */
     public Point() {}
 
     /**
-     * constructor for Point.
+     * constructor for Game.Point.
      * @param x value
      * @param y value
      */
