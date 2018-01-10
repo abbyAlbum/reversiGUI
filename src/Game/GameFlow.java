@@ -1,6 +1,10 @@
 package Game;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -10,6 +14,8 @@ public class GameFlow {
     private int[] turnsLeft_;
     private Board board_;
     private GameLogic logic_;
+    private Player p1;
+    private Player p2;
 
     /**
      * constructor for game flow
@@ -25,18 +31,17 @@ public class GameFlow {
         turnsLeft_ = new int[2];
         turnsLeft_[0] = 0;
         turnsLeft_[1] = 0;
+        p1 = new HumanPlayer('X', colorOne);
+        p2 = new HumanPlayer('O', colorTwo);
     }
 
     /**
      * runs the game.
      */
     public void run() {
-        HumanPlayer player1 = new HumanPlayer('X');
-        HumanPlayer player2 = new HumanPlayer('O');
-        HumanPlayer p1 = player1, p2 = player2;
         CellCounter cc = new CellCounter(board_);
+        loadFXML();
         while (true) {
-            System.out.println(currentPlayer_ + ": It's your turn.");
             if (currentPlayer_ == 'X') {
                 playOneTurn(p1, p2, cc);
             } else {
@@ -44,10 +49,22 @@ public class GameFlow {
             }
             if ((turnsLeft_[0] == 1 && turnsLeft_[1] == 1) || cc.getSpaceCounter() == 0) break;
         }
-        if (cc.getXCounter() > cc.getOCounter())
-            System.out.println("Game.Player 1 wins with " + cc.getXCounter() + " tiles");
-        else
-            System.out.println("Game.Player 2 wins with " + cc.getOCounter() + " tiles" );
+    }
+
+    /**
+     * Loads the FXML
+     */
+    public void loadFXML() {
+        try {
+            AnchorPane root = FXMLLoader.load(getClass().getResource("game.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Reversi");
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -56,7 +73,7 @@ public class GameFlow {
      * @param opp player
      * @param cc cell counter
      */
-    public void playOneTurn(Player curr, Player opp, CellCounter cc) {
+    private void playOneTurn(Player curr, Player opp, CellCounter cc) {
         List<Point> moves;
         Point choice;
         Point p = new Point(1, 1);
@@ -76,5 +93,4 @@ public class GameFlow {
         cc.count();
         currentPlayer_ = opp.getSymbol();
     }
-
 }
