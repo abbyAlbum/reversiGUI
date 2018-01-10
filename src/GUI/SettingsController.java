@@ -1,44 +1,63 @@
 package GUI;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.*;
 
 public class SettingsController {
     @FXML
-    private TextField firstPlayer;
+    private RadioButton firstPlayer;
     @FXML
-    private TextField colorOne;
+    private RadioButton secondPlayer;
     @FXML
-    private TextField colorTwo;
+    private ColorPicker colorOne;
     @FXML
-    private TextField size;
+    private ColorPicker colorTwo;
+    @FXML
+    private Slider size;
+    @FXML
+    private Button save;
+    @FXML
+    private Button back;
+
     private String playerOne;
     private String firstColor;
     private String secondColor;
     private String boardSize;
 
+    /**
+     * starts the game from the settings screen.
+     */
     @FXML
-    protected void startGame(ActionEvent event) {
-        writeSettings();
+    protected void save() {
         try {
-            AnchorPane root = FXMLLoader.load(getClass().getResource("game.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Reversi");
-            stage.show();
-            //menu.stg.close();
+            writeSettings();
+            // TODO close settings window
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * back option from settings, closes the window
+     */
+    @FXML
+    protected void back() {
+        // TODO close settings window
+    }
+
+    /**
+     * writes the settings from the text fields to settings.txt
+     */
     private void writeSettings() {
         setStrings();
         try {
@@ -75,14 +94,18 @@ public class SettingsController {
         }
     }
 
+    /**
+     * sets the strings to write into settings.txt
+     */
     private void setStrings() {
-        if ((playerOne = firstPlayer.getText()) == null)
+        if (firstPlayer.isSelected())
+            playerOne = firstPlayer.getText();
+        else if (secondPlayer.isSelected())
+            playerOne = secondPlayer.getText();
+        else
             playerOne = "";
-        if ((firstColor = colorOne.getText()) == null)
-            firstColor = "";
-        if ((secondColor = colorTwo.getText()) == null)
-            secondColor = "";
-        if ((boardSize = size.getText()) == null)
-            boardSize = "";
+        firstColor = "#" + Integer.toHexString(colorOne.getValue().hashCode());
+        secondColor = "#" + Integer.toHexString(colorTwo.getValue().hashCode());
+        boardSize = Integer.toString((int) size.getValue());
     }
 }

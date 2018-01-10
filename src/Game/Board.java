@@ -16,7 +16,7 @@ public class Board {
         Point p;
         for (int i = 0;i < bSize;i++) {
             board_[i] = new Cell[bSize];
-            for (int j = 0;j < bSize;j++) {
+            for (int j = 0; j < bSize; j++) {
                 p = new Point(i, j);
                 board_[i][j].setValue(' ');
                 board_[i][j].setPlace(p);

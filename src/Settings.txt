@@ -5,7 +5,7 @@ white
 8
 
 SETTINGS
-black
-black
-white
-8
+
+ffff4dff
+334db3ff
+4.0

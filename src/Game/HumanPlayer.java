@@ -1,17 +1,21 @@
 package Game;
 
+import javafx.scene.paint.Color;
+
 import java.util.List;
 
 public class HumanPlayer implements Player {
 
     private char symbol_;
+    private Color color;
 
-/**
- * constructor for Game.HumanPlayer.
- * @param symbol
- */
-    public HumanPlayer(char symbol) {
+    /**
+    * constructor for Game.HumanPlayer.
+    * @param symbol
+    */
+    public HumanPlayer(char symbol, Color c) {
         symbol_ = symbol;
+        color = c;
     }
 
     /**
@@ -21,48 +25,33 @@ public class HumanPlayer implements Player {
      */
     public Point makeMove(List<Point> moves, Point p) {
         if (moves.isEmpty()) {
-            System.out.println("You have no possible moves, other player's turn.");
             return new Point(-1, -1);
         }
-        //Game.Point p;
-        System.out.println("Please enter row and column (separated with space):");
+        ComparePoint cp = new ComparePoint();
         while (true) {
-            //p = getValidInput();
             Boolean isInMoves = false;
             for (int i = 0; i < moves.size(); ++i) {
-                if (p == moves.get(i)) {
+                if (cp.compare(p, moves.get(i)) == 0) {
                     isInMoves = true;
                     break;
                 } else isInMoves = false;
             }
             if (isInMoves) break;
-            else {
-                System.out.println("Your choice is illegal, please try again:");
-            }
         }
         return p;
     }
-
-//    /**
-//     * makes sure that we get only numbers
-//     * @return the player's choice
-//     */
-//    public Game.Point getValidInput() {
-//        Scanner sc = new Scanner(System.in);
-//        while (true) {
-//            int row = sc.nextInt();
-//            int col = sc.nextInt();
-//            return new Game.Point(row, col);
-//            // user didn't input row and column
-//            System.out.println("Please enter numbers only." );
-//            cin.clear(); // reset failbit
-//            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-//        }
-//    }
 
     /**
      * gets the player's symbol
      * @return symbol
      */
     public char getSymbol() { return symbol_; }
+
+    /**
+     * gets the player's color
+     * @return color
+     */
+    public Color getColor() {
+        return color;
+    }
 }
