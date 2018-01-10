@@ -41,7 +41,8 @@ public class SettingsController {
     protected void save() {
         try {
             writeSettings();
-            // TODO close settings window
+            Stage stage = (Stage) save.getScene().getWindow();
+            stage.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,7 +53,8 @@ public class SettingsController {
      */
     @FXML
     protected void back() {
-        // TODO close settings window
+        Stage stage = (Stage) back.getScene().getWindow();
+        stage.close();
     }
 
     /**

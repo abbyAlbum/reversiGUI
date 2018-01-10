@@ -1,5 +1,7 @@
 package Game;
 
+import javafx.scene.layout.GridPane;
+
 public class Board {
 
 
