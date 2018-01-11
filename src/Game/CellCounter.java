@@ -1,5 +1,7 @@
 package Game;
 
+import GUI.Board;
+
 public class CellCounter {
 
     private Board board_;

@@ -6,6 +6,6 @@ white
 
 SETTINGS
 
-ffff4dff
-334db3ff
-4.0
+#ffffffff
+#ffffffff
+10

@@ -1,5 +1,6 @@
 package Game;
 
+import GUI.Board;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -40,7 +41,7 @@ public class GameFlow {
      */
     public void run() {
         CellCounter cc = new CellCounter(board_);
-        loadFXML();
+        //loadFXML();
         while (true) {
             if (currentPlayer_ == 'X') {
                 playOneTurn(p1, p2, cc);

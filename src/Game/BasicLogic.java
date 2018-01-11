@@ -1,5 +1,7 @@
 package Game;
 
+import GUI.Board;
+
 import java.util.*;
 
 public class BasicLogic implements GameLogic {

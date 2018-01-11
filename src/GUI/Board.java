@@ -1,34 +1,83 @@
-package Game;
+package GUI;
 
+import Game.Cell;
+import Game.Player;
+import Game.Point;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
-public class Board {
+import java.io.IOException;
+
+public class Board extends GridPane {
 
 
     private Cell[][] board_;
     private int bSize;
 
     /**
-     * constructor for Game.Board
+     * constructor for GUI.Board
      * @param size of board
      */
     public Board(int size) {
-        bSize = size;
-        board_ = new Cell[bSize][];
-        Point p;
-        for (int i = 0;i < bSize;i++) {
-            board_[i] = new Cell[bSize];
-            for (int j = 0; j < bSize; j++) {
-                p = new Point(i, j);
-                board_[i][j].setValue(' ');
-                board_[i][j].setPlace(p);
+        board_ = new Cell[size][];
+        this.getChildren().clear();
+
+        int height = (int)this.getPrefHeight();
+        int width = (int)this.getPrefWidth();
+
+        int cellHeight = height / size;
+        int cellWidth = width / size;
+
+//        Point p;
+//        for (int i = 0;i < bSize;i++) {
+//            board_[i] = new Cell[bSize];
+//            for (int j = 0; j < bSize; j++) {
+//                p = new Point(i, j);
+//                board_[i][j].setValue(' ');
+//                board_[i][j].setPlace(p);
+//            }
+//        }
+//        board_[(bSize / 2) - 1][(bSize / 2) - 1].setValue('O');
+//        board_[bSize / 2][bSize / 2].setValue('O');
+//        board_[(bSize / 2) - 1][bSize / 2].setValue('X');
+//        board_[bSize / 2][(bSize / 2) - 1].setValue('X');
+//
+//        System.out.print("me");
+//        FXMLLoader fxmlLoader = new
+//                FXMLLoader(getClass().getResource("guiBoard.fxml"));
+//        fxmlLoader.setRoot(this);
+//        fxmlLoader.setController(this);
+//
+//        try {
+//            fxmlLoader.load();
+//        } catch (IOException exception) {
+//            throw new RuntimeException(exception);
+//        }
+        try {
+            HBox root = FXMLLoader.load(getClass().getResource("guiBoard.fxml"));
+            Scene scene = new Scene(root,600,400);
+//            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setTitle("Reversi");
+            stage.setScene(scene);
+            stage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < size; i++) {
+            board_[i] = new Cell[size];
+            for (int j = 0; j < size; j++) {
+                this.add(new Rectangle(cellWidth, cellHeight,
+                        Color.SLATEGRAY), j, i);
             }
         }
-        board_[(bSize / 2) - 1][(bSize / 2) - 1].setValue('O');
-        board_[bSize / 2][bSize / 2].setValue('O');
-        board_[(bSize / 2) - 1][bSize / 2].setValue('X');
-        board_[bSize / 2][(bSize / 2) - 1].setValue('X');
     }
+
 
     /**
      * gets the board's size
