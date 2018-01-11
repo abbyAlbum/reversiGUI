@@ -12,6 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class Board extends GridPane {
 
@@ -27,8 +28,8 @@ public class Board extends GridPane {
         board_ = new Cell[size][];
         this.getChildren().clear();
 
-        int height = (int)this.getPrefHeight();
-        int width = (int)this.getPrefWidth();
+        int height = 400;
+        int width = 400;
 
         int cellHeight = height / size;
         int cellWidth = width / size;
@@ -60,6 +61,14 @@ public class Board extends GridPane {
 //        }
         try {
             HBox root = FXMLLoader.load(getClass().getResource("guiBoard.fxml"));
+            for (int i = 0; i < size; i++) {
+                board_[i] = new Cell[size];
+                for (int j = 0; j < size; j++) {
+                this.add(new Rectangle(cellWidth, cellHeight,
+                        Color.SLATEGRAY), j, i);
+                }
+            }
+            root.getChildren().add(0, this);
             Scene scene = new Scene(root,600,400);
 //            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             Stage stage = new Stage();
@@ -69,13 +78,7 @@ public class Board extends GridPane {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < size; i++) {
-            board_[i] = new Cell[size];
-            for (int j = 0; j < size; j++) {
-                this.add(new Rectangle(cellWidth, cellHeight,
-                        Color.SLATEGRAY), j, i);
-            }
-        }
+
     }
 
 
