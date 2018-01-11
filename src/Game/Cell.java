@@ -8,7 +8,9 @@ public class Cell{
     /**
      * constructor for Game.Cell
      */
-    public Cell() {}
+    public Cell() {
+        place_ = new Point(-4, -4);
+    }
 
     /**
     * constructor for Game.Cell

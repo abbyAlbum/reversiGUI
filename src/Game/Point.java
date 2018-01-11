@@ -18,7 +18,7 @@ public class Point {
      * @param x value
      * @param y value
      */
-    Point(int x, int y) {
+    public Point(int x, int y) {
         x_ = x;
         y_ = y;
     }

@@ -1,4 +1,4 @@
-package GUI;
+package Game;
 
 import Game.Cell;
 import Game.Player;
@@ -20,64 +20,36 @@ public class Board extends GridPane {
     private Cell[][] board_;
     private int bSize;
 
+    public Cell[][] getBoard_() {
+        return board_;
+    }
+
     /**
-     * constructor for GUI.Board
+     * constructor for Game.Board
      * @param size of board
      */
     public Board(int size) {
-        board_ = new Cell[size][];
-        this.getChildren().clear();
+        board_ = new Cell[size][size];
+        bSize = size;
 
-        int height = 400;
-        int width = 400;
-
-        int cellHeight = height / size;
-        int cellWidth = width / size;
-
-//        Point p;
-//        for (int i = 0;i < bSize;i++) {
-//            board_[i] = new Cell[bSize];
-//            for (int j = 0; j < bSize; j++) {
-//                p = new Point(i, j);
-//                board_[i][j].setValue(' ');
-//                board_[i][j].setPlace(p);
-//            }
-//        }
-//        board_[(bSize / 2) - 1][(bSize / 2) - 1].setValue('O');
-//        board_[bSize / 2][bSize / 2].setValue('O');
-//        board_[(bSize / 2) - 1][bSize / 2].setValue('X');
-//        board_[bSize / 2][(bSize / 2) - 1].setValue('X');
-//
-//        System.out.print("me");
-//        FXMLLoader fxmlLoader = new
-//                FXMLLoader(getClass().getResource("guiBoard.fxml"));
-//        fxmlLoader.setRoot(this);
-//        fxmlLoader.setController(this);
-//
-//        try {
-//            fxmlLoader.load();
-//        } catch (IOException exception) {
-//            throw new RuntimeException(exception);
-//        }
-        try {
-            HBox root = FXMLLoader.load(getClass().getResource("guiBoard.fxml"));
-            for (int i = 0; i < size; i++) {
-                board_[i] = new Cell[size];
-                for (int j = 0; j < size; j++) {
-                this.add(new Rectangle(cellWidth, cellHeight,
-                        Color.SLATEGRAY), j, i);
-                }
+        Point p;
+        for (int l = 0;l < bSize;l++) {
+            for (int k = 0; k < bSize; k++) {
+                board_[l][k] = new Cell();
             }
-            root.getChildren().add(0, this);
-            Scene scene = new Scene(root,600,400);
-//            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            Stage stage = new Stage();
-            stage.setTitle("Reversi");
-            stage.setScene(scene);
-            stage.show();
-        } catch(Exception e) {
-            e.printStackTrace();
         }
+
+        for (int i = 0;i < bSize;i++) {
+            for (int j = 0; j < bSize; j++) {
+                p = new Point(i, j);
+                board_[i][j].setValue(' ');
+                board_[i][j].setPlace(p);
+            }
+        }
+        board_[(bSize / 2) - 1][(bSize / 2) - 1].setValue('O');
+        board_[bSize / 2][bSize / 2].setValue('O');
+        board_[(bSize / 2) - 1][bSize / 2].setValue('X');
+        board_[bSize / 2][(bSize / 2) - 1].setValue('X');
 
     }
 

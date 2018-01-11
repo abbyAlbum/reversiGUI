@@ -1,6 +1,5 @@
 package Game;
 
-import GUI.Board;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;

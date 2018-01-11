@@ -6,6 +6,6 @@ white
 
 SETTINGS
 
+#331a80ff
 #ffffffff
-#ffffffff
-10
+4
