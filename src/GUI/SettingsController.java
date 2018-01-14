@@ -3,10 +3,7 @@ package GUI;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -28,6 +25,8 @@ public class SettingsController {
     private Button save;
     @FXML
     private Button back;
+    @FXML
+    private Label message;
 
     private String playerOne;
     private String firstColor;
@@ -40,9 +39,13 @@ public class SettingsController {
     @FXML
     protected void save() {
         try {
-            writeSettings();
+            int n = writeSettings();
+            if (n == 0) return;
             Stage stage = (Stage) save.getScene().getWindow();
-            stage.close();
+            AnchorPane root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+            Scene scene = new Scene(root, 600, 400);
+            stage.setScene(scene);
+            stage.setTitle("Reversi");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,15 +56,31 @@ public class SettingsController {
      */
     @FXML
     protected void back() {
-        Stage stage = (Stage) back.getScene().getWindow();
-        stage.close();
+        try {
+            Stage stage = (Stage) back.getScene().getWindow();
+            AnchorPane root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+            Scene scene = new Scene(root, 600, 400);
+            stage.setScene(scene);
+            stage.setTitle("Reversi");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * writes the settings from the text fields to settings.txt
      */
-    private void writeSettings() {
+    private int writeSettings() {
         setStrings();
+        if (colorOne.getValue() == colorTwo.getValue() || colorTwo.getValue() == Color.GREEN) {
+            message.setText("Player two, pick another color");
+            message.setTextFill(Color.RED);
+            return 0;
+        } else if (colorOne.getValue() == Color.GREEN) {
+            message.setText("Player one, pick another color");
+            message.setTextFill(Color.RED);
+            return 0;
+        }
         try {
             String path = "./src/Settings.txt";
             File inFile = new File(path);
@@ -94,6 +113,7 @@ public class SettingsController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return 1;
     }
 
     /**

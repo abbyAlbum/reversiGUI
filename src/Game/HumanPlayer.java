@@ -24,21 +24,26 @@ public class HumanPlayer implements Player {
      * @return the player's choice
      */
     public Point makeMove(List<Point> moves, Point p) {
+        int x = p.getX() + 1;
+        int y = p.getY() + 1;
+        Point newP = new Point(x, y);
+        boolean flag = true;
         if (moves.isEmpty()) {
-            return new Point(-1, -1);
+            return new Point(-2, -2);
         }
         ComparePoint cp = new ComparePoint();
-        while (true) {
-            Boolean isInMoves = false;
-            for (int i = 0; i < moves.size(); ++i) {
-                if (cp.compare(p, moves.get(i)) == 0) {
-                    isInMoves = true;
+
+            for (int i = 0; i < moves.size(); i++) {
+                if (cp.compare(newP, moves.get(i)) == 0) {
+                    flag = false;
                     break;
-                } else isInMoves = false;
+                }
             }
-            if (isInMoves) break;
-        }
-        return p;
+        x = newP.getX() - 1;
+        y = newP.getY() - 1;
+        Point p1 = new Point(x, y);
+            if(flag) return new Point(-1, -1);
+            else return p1;
     }
 
     /**

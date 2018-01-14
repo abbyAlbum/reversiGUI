@@ -1,20 +1,7 @@
 package Game;
 
-import Game.Cell;
-import Game.Player;
-import Game.Point;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.Random;
-
-public class Board extends GridPane {
+public class Board{
 
 
     private Cell[][] board_;

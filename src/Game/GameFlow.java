@@ -40,7 +40,6 @@ public class GameFlow {
      */
     public void run() {
         CellCounter cc = new CellCounter(board_);
-        //loadFXML();
         while (true) {
             if (currentPlayer_ == 'X') {
                 playOneTurn(p1, p2, cc);
@@ -48,22 +47,6 @@ public class GameFlow {
                 playOneTurn(p2, p1, cc);
             }
             if ((turnsLeft_[0] == 1 && turnsLeft_[1] == 1) || cc.getSpaceCounter() == 0) break;
-        }
-    }
-
-    /**
-     * Loads the FXML
-     */
-    public void loadFXML() {
-        try {
-            AnchorPane root = FXMLLoader.load(getClass().getResource("game.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Reversi");
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

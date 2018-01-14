@@ -35,7 +35,7 @@ public class BasicLogic implements GameLogic {
         List<Point> moves = new LinkedList<>(pointSet);
         //possibleMoves.erase(unique(possibleMoves.begin(), possibleMoves.end()), possibleMoves.end());
         //printOptions(moves);
-        return possibleMoves;
+        return moves;
     }
 
     /**
