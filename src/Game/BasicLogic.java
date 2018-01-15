@@ -29,12 +29,9 @@ public class BasicLogic implements GameLogic {
                 }
             }
         }
-        //List<Game.Point> moves = possibleMoves;
         Collections.sort(possibleMoves, new ComparePoint());
         Set<Point> pointSet = new HashSet<>(possibleMoves);
         List<Point> moves = new LinkedList<>(pointSet);
-        //possibleMoves.erase(unique(possibleMoves.begin(), possibleMoves.end()), possibleMoves.end());
-        //printOptions(moves);
         return moves;
     }
 

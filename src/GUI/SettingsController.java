@@ -1,5 +1,6 @@
 package GUI;
 
+import Game.SettingsReader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,10 +12,6 @@ import javafx.stage.Stage;
 import java.io.*;
 
 public class SettingsController {
-    @FXML
-    private RadioButton firstPlayer;
-    @FXML
-    private RadioButton secondPlayer;
     @FXML
     private ColorPicker colorOne;
     @FXML
@@ -28,7 +25,6 @@ public class SettingsController {
     @FXML
     private Label message;
 
-    private String playerOne;
     private String firstColor;
     private String secondColor;
     private String boardSize;
@@ -72,7 +68,7 @@ public class SettingsController {
      */
     private int writeSettings() {
         setStrings();
-        if (colorOne.getValue() == colorTwo.getValue() || colorTwo.getValue() == Color.GREEN) {
+        if (firstColor.equals(secondColor) || colorTwo.getValue() == Color.GREEN) {
             message.setText("Player two, pick another color");
             message.setTextFill(Color.RED);
             return 0;
@@ -91,7 +87,6 @@ public class SettingsController {
             while ((line = br.readLine()) != null) {
                 if (line.trim().equals("SETTINGS")) {
                     pw.println(line);
-                    pw.println(playerOne);
                     pw.println(firstColor);
                     pw.println(secondColor);
                     pw.println(boardSize);
@@ -104,7 +99,6 @@ public class SettingsController {
             }
             pw.close();
             br.close();
-
             // Delete original file
             if (!inFile.delete())
                 throw new Exception("couldn't delete file");
@@ -120,14 +114,20 @@ public class SettingsController {
      * sets the strings to write into settings.txt
      */
     private void setStrings() {
-        if (firstPlayer.isSelected())
-            playerOne = firstPlayer.getText();
-        else if (secondPlayer.isSelected())
-            playerOne = secondPlayer.getText();
-        else
-            playerOne = "";
         firstColor = "#" + Integer.toHexString(colorOne.getValue().hashCode());
+        if (firstColor.equals("#ff"))
+            firstColor = "black";
         secondColor = "#" + Integer.toHexString(colorTwo.getValue().hashCode());
+        if (secondColor.equals("#ff"))
+            secondColor = "black";
         boardSize = Integer.toString((int) size.getValue());
+    }
+
+    public  void initialize() {
+        SettingsReader sr = new SettingsReader("./src/Settings.txt");
+        sr.readFile();
+        colorOne.setValue(sr.getColourOne());
+        colorTwo.setValue(sr.getColourTwo());
+        size.setValue(sr.getSize());
     }
 }

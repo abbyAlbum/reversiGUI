@@ -9,7 +9,6 @@ public class SettingsReader {
 
     private String path;
     private int size;
-    private String firstPlayer;
     private Color colourOne;
     private Color colourTwo;
 
@@ -22,6 +21,9 @@ public class SettingsReader {
         path = p;
     }
 
+    /**
+     * Reads from the file
+     */
     public void readFile() {
         String[] settings = new String[4];
         try {
@@ -29,7 +31,7 @@ public class SettingsReader {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
             br.readLine();
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 3; i++) {
                 line = br.readLine();
                 settings[i] = line;
             }
@@ -52,10 +54,10 @@ public class SettingsReader {
      * @param settings - list of strings
      */
     private void parseSettings(String[] settings) {
-        firstPlayer = settings[0];
-        colourOne = Color.web(settings[1]);
-        colourTwo = Color.web(settings[2]);
-        size = Integer.parseInt(settings[3]);
+        //firstPlayer = settings[0];
+        colourOne = Color.web(settings[0]);
+        colourTwo = Color.web(settings[1]);
+        size = Integer.parseInt(settings[2]);
     }
 
     /**
@@ -66,13 +68,6 @@ public class SettingsReader {
         return size;
     }
 
-    /**
-     * Gets the first player
-     * @return firstplayer
-     */
-    public String getFirstPlayer() {
-        return firstPlayer;
-    }
 
     /**
      * Gets the first player colour

@@ -14,6 +14,9 @@ public class MenuController {
     @FXML
     private Button settings;
 
+    /**
+     * Starts the playing of the game
+     */
     @FXML
     protected void startGame() {
         try {
@@ -30,6 +33,9 @@ public class MenuController {
 
     }
 
+    /**
+     * opens the settinfs
+     */
     @FXML
     protected void openSettings() {
         try {
@@ -42,4 +48,6 @@ public class MenuController {
             e.printStackTrace();
         }
     }
+
+
 }

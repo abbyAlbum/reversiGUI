@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 
+    /**
+     * Starts the game
+     * @param primaryStage - the first stage
+     */
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -24,6 +28,10 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * the main - launches the game
+     * @param args - the arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

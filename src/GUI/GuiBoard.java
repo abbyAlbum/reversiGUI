@@ -2,10 +2,13 @@ package GUI;
 
 import Game.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -44,7 +47,7 @@ public class GuiBoard extends GridPane {
     /**
      * Draws the board
      */
-    public void draw(Player p1, Player p2, Integer counter) {
+    public void draw(Player p1, Player p2, Integer counter, CellCounter cc, Integer curr) {
         this.getChildren().clear();
         int height = (int)this.getPrefHeight();
         List<Point> moves;
@@ -65,10 +68,7 @@ public class GuiBoard extends GridPane {
                 }
             }
         }
-        if (counter == 0)
-            moves = new BasicLogic(board).getPossibleMoves(p1, p2);
-        else
-            moves = new BasicLogic(board).getPossibleMoves(p2, p1);
+        moves = getMoves(curr, counter, p1, p2, cc);
         for (Point p : moves) {
             int x = p.getX();
             int y = p.getY();
@@ -76,6 +76,39 @@ public class GuiBoard extends GridPane {
             rectangle.setStroke(Color.BLACK);
             this.add(rectangle, y - 1, x - 1);
         }
+    }
+
+    private List<Point> getMoves(Integer curr, Integer counter, Player p1, Player p2, CellCounter cc) {
+        GameLogic gl = new BasicLogic(board);
+        List<Point> moves;
+        if (counter == 0) {
+            moves = gl.getPossibleMoves(p1, p2);
+            if(moves.isEmpty() && cc.getSpaceCounter() != 0) {
+                noMoves(curr);
+                moves = gl.getPossibleMoves(p2, p1);
+            }
+        } else {
+            moves = gl.getPossibleMoves(p2, p1);
+            if(moves.isEmpty() && cc.getSpaceCounter() != 0) {
+                noMoves(curr);
+                moves = gl.getPossibleMoves(p1, p2);
+            }
+        }
+        return moves;
+    }
+
+    /**
+     * warning box if no moves
+     */
+    private void noMoves(Integer curr) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("NO MOVES");
+        alert.setHeaderText(null);
+        if (curr == 1)
+            alert.setContentText("Player One has no moves, next player's turn");
+        else
+            alert.setContentText("Player Two has no moves, next player's turn");
+        alert.showAndWait();
     }
 }
 

@@ -1,6 +1,7 @@
 package GUI;
 
 import Game.*;
+import Game.Point;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -23,9 +25,9 @@ public class BoardController implements Initializable{
     private HBox root;
     @FXML
     private Button backBtn;
-    private char currentPlayer_;
-    private int[] turnsLeft_;
 
+    private Integer currentPlayer_;
+    private int[] turnsLeft_;
     /**
      * Creates the board controller
      */
@@ -41,7 +43,7 @@ public class BoardController implements Initializable{
      * @param resources - the resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {;
+    public void initialize(URL location, ResourceBundle resources) {
         SettingsReader sr = new SettingsReader("./src/Settings.txt");
         sr.readFile();
         Integer counter = 0;
@@ -59,13 +61,13 @@ public class BoardController implements Initializable{
         gb.setPrefHeight(400);
         root.getChildren().add(0, gb);
         root.getChildren().add(1, vb);
-        getPlayer(sr);
+        currentPlayer_ = 1;
+        CellCounter cc = new CellCounter(gb.getBoard());
         Player p1 = new HumanPlayer('X', sr.getColourOne());
         Player p2 = new HumanPlayer('O', sr.getColourTwo());
-        CellCounter cc = new CellCounter(gb.getBoard());
         gb.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, e -> {
             Point move = convert(e.getX(), e.getY(), gb.getHeight() / gb.getBoard().getSize());
-            if (currentPlayer_ == 'X')
+            if (currentPlayer_ == 1)
                 run(move, p1, p2, gb, counter, cc, player, score1, score2);
             else
                 run(move, p2, p1, gb, counter, cc, player, score1, score2);
@@ -73,8 +75,8 @@ public class BoardController implements Initializable{
                 endGame(cc);
             }
         });
-        gb.draw(p1, p2, counter);
-        changeScene(gb, p1, p2 ,counter);
+        gb.draw(p1, p2, counter, cc, currentPlayer_);
+        changeScene(gb, p1, p2 ,counter, cc);
 
     }
 
@@ -109,15 +111,15 @@ public class BoardController implements Initializable{
      * @param p2 - the second player
      * @param counter - the counter
      */
-    private void changeScene(GuiBoard gb, Player p1, Player p2, Integer counter ){
+    private void changeScene(GuiBoard gb, Player p1, Player p2, Integer counter, CellCounter cc){
         root.widthProperty().addListener((observable, oldValue, newValue) -> {
             double boardNewWidth = newValue.doubleValue() - 120;
             gb.setPrefWidth(boardNewWidth);
-            gb.draw(p1, p2, counter);
+            gb.draw(p1, p2, counter, cc, currentPlayer_);
         });
         root.heightProperty().addListener((observable, oldValue, newValue) -> {
             gb.setPrefHeight(newValue.doubleValue());
-            gb.draw(p1 , p2, counter);
+            gb.draw(p1 , p2, counter, cc, currentPlayer_);
         });
 
     }
@@ -132,34 +134,47 @@ public class BoardController implements Initializable{
                     Text player, Text score1, Text score2) {
         int x = move.getX() - 1;
         int y = move.getY() - 1;
+        boolean flag = true;
         Point point = new Point(x, y);
         BasicLogic bl = new BasicLogic(gb.getBoard());
-
         List<Point> points = bl.getPossibleMoves(p1, p2);
         Point choice = p1.makeMove(points, point);
         //if the point is contained in the list of possible moves
         if(choice.getX() != -1 && choice.getX() != -2) {
             gb.getBoard().putChoice(choice, p1, p2);
             cc.count();
+            flag = checkMoves(player, p1, p2, cc, gb.getBoard());
             counter++;
-            gb.draw(p1, p2, counter);
+            gb.draw(p1, p2, counter, cc, currentPlayer_);
             score1.setText("Player 1: " + cc.getXCounter());
             score2.setText("Player 2: " + cc.getOCounter());
-            if (turnsLeft_[0] == 1 && currentPlayer_ == 'X') turnsLeft_[0] = 0;
-            if (turnsLeft_[1] == 1 && currentPlayer_ == 'O') turnsLeft_[1] = 0;
+            if (flag) {
+                if (turnsLeft_[0] == 1 && currentPlayer_ == 1) turnsLeft_[0] = 0;
+                if (turnsLeft_[1] == 1 && currentPlayer_ == 2) turnsLeft_[1] = 0;
+            }
             switchTurn(player);
         }
-        if(choice.getX() == -2) {
-            if (currentPlayer_ == 'X') turnsLeft_[0] = 1;
-            else turnsLeft_[1] = 1;
+    }
+
+    private boolean checkMoves(Text player, Player p1, Player p2, CellCounter cc, Board b) {
+        GameLogic gl = new BasicLogic(b);
+        List<Point> moves = gl.getPossibleMoves(p2, p1);
+        List<Point> moves1 = gl.getPossibleMoves(p1, p2);
+        boolean flag = true;
+        if(moves.isEmpty() && (!(turnsLeft_[0] == 1 && turnsLeft_[1] == 1) || cc.getSpaceCounter() == 0)) {
             switchTurn(player);
+            turnsLeft_[currentPlayer_ - 1] = 0;
+            flag = false;
+            if (moves1.isEmpty())
+                turnsLeft_[3 - currentPlayer_ - 1] = 1;
         }
+        return flag;
     }
 
     /**
      * Button to return to menu
      */
-    public void goBack() {
+    private void goBack() {
         try {
             Stage stage = (Stage) backBtn.getScene().getWindow();
             AnchorPane root = FXMLLoader.load(getClass().getResource("menu.fxml"));
@@ -175,7 +190,7 @@ public class BoardController implements Initializable{
      * Ends the game
      * @param cc - the cellcounter
      */
-    public void endGame(CellCounter cc) {
+    private void endGame(CellCounter cc) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("GAME OVER");
         alert.setHeaderText(null);
@@ -189,30 +204,16 @@ public class BoardController implements Initializable{
         alert.showAndWait();
     }
 
-
     /**
      * Changes the players turn
      * @param player - the player text
      */
     private void switchTurn(Text player) {
-        if (currentPlayer_ == 'X') {
-            currentPlayer_ = 'O';
+        currentPlayer_ = 3 - currentPlayer_;
+        if (currentPlayer_ == 2)
             player.setText("   Player two");
-        } else {
-            currentPlayer_ = 'X';
-            player.setText("   Player one");
-        }
-    }
-
-    /**
-     * Gets the player
-     * @param sr - the settingreader
-     */
-    public void getPlayer(SettingsReader sr) {
-        if (sr.getFirstPlayer().equals("black"))
-            currentPlayer_ = 'X';
         else
-            currentPlayer_ = 'O';
+            player.setText("   Player one");
     }
 
     /**
@@ -221,10 +222,9 @@ public class BoardController implements Initializable{
      * @param y - y co-ordinate
      * @return our point
      */
-    public Point convert(double x, double y, double cellSize) {
+    private Point convert(double x, double y, double cellSize) {
         int newY = 1 + (int) (x / cellSize);
         int newX = 1 + (int) (y / cellSize);
         return new Point(newX, newY);
     }
-
 }

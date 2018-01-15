@@ -13,9 +13,9 @@ public class CellCounter {
      */
     public CellCounter(Board board) {
         board_ = board;
-        xCounter_ = 0;
-        oCounter_ = 0;
-        spaceCounter_ = 0;
+        xCounter_ = 2;
+        oCounter_ = 2;
+        spaceCounter_ = board_.getSize() * board_.getSize() - 4;
     }
 
     /**

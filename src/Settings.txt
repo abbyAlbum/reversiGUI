@@ -1,11 +1,9 @@
 DEFAULT
 black
-black
 white
 8
 
 SETTINGS
-
+#4d66ccff
 #ffffffff
-#ff
 4
