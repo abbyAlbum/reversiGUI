@@ -123,6 +123,9 @@ public class SettingsController {
         boardSize = Integer.toString((int) size.getValue());
     }
 
+    /**
+     * Sets the settings
+     */
     public  void initialize() {
         SettingsReader sr = new SettingsReader("./src/Settings.txt");
         sr.readFile();

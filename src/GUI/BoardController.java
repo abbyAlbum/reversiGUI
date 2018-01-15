@@ -27,6 +27,7 @@ public class BoardController implements Initializable{
     private Button backBtn;
 
     private Integer currentPlayer_;
+    private Integer k;
     private int[] turnsLeft_;
     /**
      * Creates the board controller
@@ -62,6 +63,7 @@ public class BoardController implements Initializable{
         root.getChildren().add(0, gb);
         root.getChildren().add(1, vb);
         currentPlayer_ = 1;
+        k = 0;
         CellCounter cc = new CellCounter(gb.getBoard());
         Player p1 = new HumanPlayer('X', sr.getColourOne());
         Player p2 = new HumanPlayer('O', sr.getColourTwo());
@@ -72,7 +74,8 @@ public class BoardController implements Initializable{
             else
                 run(move, p2, p1, gb, counter, cc, player, score1, score2);
             if ((turnsLeft_[0] == 1 && turnsLeft_[1] == 1) || cc.getSpaceCounter() == 0) {
-                endGame(cc);
+                if (k == 0) endGame(cc);
+                k++;
             }
         });
         gb.draw(p1, p2, counter, cc, currentPlayer_);
@@ -156,6 +159,15 @@ public class BoardController implements Initializable{
         }
     }
 
+    /**
+     * Checks the players moves
+     * @param player - the player text
+     * @param p1 - first player
+     * @param p2 - second player
+     * @param cc - cell counter
+     * @param b - the board
+     * @return true or false
+     */
     private boolean checkMoves(Text player, Player p1, Player p2, CellCounter cc, Board b) {
         GameLogic gl = new BasicLogic(b);
         List<Point> moves = gl.getPossibleMoves(p2, p1);

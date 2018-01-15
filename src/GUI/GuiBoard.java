@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -78,6 +77,15 @@ public class GuiBoard extends GridPane {
         }
     }
 
+    /**
+     * Gets the players moves
+     * @param curr - the integer
+     * @param counter - the counter
+     * @param p1 - the first player
+     * @param p2 - the second player
+     * @param cc - the cell counter
+     * @return the list of moves
+     */
     private List<Point> getMoves(Integer curr, Integer counter, Player p1, Player p2, CellCounter cc) {
         GameLogic gl = new BasicLogic(board);
         List<Point> moves;
