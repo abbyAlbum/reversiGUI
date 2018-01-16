@@ -4,6 +4,6 @@ white
 8
 
 SETTINGS
-#4d66ccff
-#ffffffff
-4
+#cc3333ff
+#ffff66ff
+6

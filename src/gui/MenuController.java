@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +20,8 @@ public class MenuController {
     @FXML
     protected void startGame() {
         try {
-            HBox root = FXMLLoader.load(getClass().getResource("guiBoard.fxml"));
+            FXMLLoader loader = new FXMLLoader((ClassLoader.getSystemClassLoader().getResource("guiBoard.fxml")));
+            HBox root = loader.load();
             Scene scene = new Scene(root,600,400);
 //            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             Stage stage = (Stage) play.getScene().getWindow();
@@ -39,7 +40,8 @@ public class MenuController {
     @FXML
     protected void openSettings() {
         try {
-            AnchorPane root = FXMLLoader.load(getClass().getResource("settings.fxml"));
+            FXMLLoader loader = new FXMLLoader((ClassLoader.getSystemClassLoader().getResource("settings.fxml")));
+            AnchorPane root = loader.load();
             Stage stage = (Stage) settings.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Reversi");

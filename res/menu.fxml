@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MenuController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MenuController">
    <children>
       <Button fx:id="play" layoutX="200.0" layoutY="139.0" mnemonicParsing="false" onAction="#startGame"
               text="Start Game" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="140.0" />

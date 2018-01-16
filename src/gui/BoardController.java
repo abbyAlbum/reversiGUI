@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import Game.*;
 import Game.Point;
@@ -189,7 +189,8 @@ public class BoardController implements Initializable{
     private void goBack() {
         try {
             Stage stage = (Stage) backBtn.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+            FXMLLoader loader = new FXMLLoader((ClassLoader.getSystemClassLoader().getResource("menu.fxml")));
+            AnchorPane root = loader.load();
             Scene scene = new Scene(root, 600, 400);
             stage.setScene(scene);
             stage.setTitle("Reversi");

@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import Game.*;
 import javafx.fxml.FXMLLoader;

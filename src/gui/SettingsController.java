@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import Game.SettingsReader;
 import javafx.fxml.FXML;
@@ -38,7 +38,8 @@ public class SettingsController {
             int n = writeSettings();
             if (n == 0) return;
             Stage stage = (Stage) save.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+            FXMLLoader loader = new FXMLLoader((ClassLoader.getSystemClassLoader().getResource("menu.fxml")));
+            AnchorPane root = loader.load();
             Scene scene = new Scene(root, 600, 400);
             stage.setScene(scene);
             stage.setTitle("Reversi");
@@ -54,7 +55,8 @@ public class SettingsController {
     protected void back() {
         try {
             Stage stage = (Stage) back.getScene().getWindow();
-            AnchorPane root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+            FXMLLoader loader = new FXMLLoader((ClassLoader.getSystemClassLoader().getResource("menu.fxml")));
+            AnchorPane root = loader.load();
             Scene scene = new Scene(root, 600, 400);
             stage.setScene(scene);
             stage.setTitle("Reversi");
@@ -78,15 +80,15 @@ public class SettingsController {
             return 0;
         }
         try {
-            String path = "./src/Settings.txt";
+            String path = "Settings.txt";
             File inFile = new File(path);
             BufferedReader br = new BufferedReader(new FileReader(path));
-            File tmpFile = new File("./src/temp.txt");
+            File tmpFile = new File("temp.txt");
             PrintWriter pw = new PrintWriter(new FileWriter(tmpFile));
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.trim().equals("SETTINGS")) {
-                    pw.println(line);
+                    pw.makeprintln(line);
                     pw.println(firstColor);
                     pw.println(secondColor);
                     pw.println(boardSize);

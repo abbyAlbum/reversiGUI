@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +16,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            AnchorPane root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+            FXMLLoader loader = new FXMLLoader((ClassLoader.getSystemClassLoader().getResource("menu.fxml")));
+            AnchorPane root = loader.load();
             Scene scene = new Scene(root, 600, 400);
             // TODO CREATE AN APPLICATION.CSS
             //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
