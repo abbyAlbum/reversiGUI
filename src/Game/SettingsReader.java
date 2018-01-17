@@ -1,9 +1,7 @@
 package Game;
 
 import javafx.scene.paint.Color;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 
 public class SettingsReader {
 
@@ -28,6 +26,8 @@ public class SettingsReader {
         String[] settings = new String[4];
         try {
             File file = new File(path);
+            if (!file.exists())
+                file = writeInitFile(file);
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
             br.readLine();
@@ -47,6 +47,22 @@ public class SettingsReader {
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * writes the default version of the file if it doesn't exist.
+     * @param file the file to write
+     */
+    private File writeInitFile(File file) throws Exception {
+        PrintWriter pw = new PrintWriter(new FileWriter(file));
+        pw.println("DEFAULT");
+        pw.println("black");
+        pw.println("white");
+        pw.println("8");
+        pw.println();
+        pw.println("SETTINGS");
+        pw.flush();
+        return file;
     }
 
     /**

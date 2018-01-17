@@ -88,7 +88,7 @@ public class SettingsController {
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.trim().equals("SETTINGS")) {
-                    pw.makeprintln(line);
+                    pw.println(line);
                     pw.println(firstColor);
                     pw.println(secondColor);
                     pw.println(boardSize);
@@ -129,7 +129,7 @@ public class SettingsController {
      * Sets the settings
      */
     public  void initialize() {
-        SettingsReader sr = new SettingsReader("./src/Settings.txt");
+        SettingsReader sr = new SettingsReader("Settings.txt");
         sr.readFile();
         colorOne.setValue(sr.getColourOne());
         colorTwo.setValue(sr.getColourTwo());

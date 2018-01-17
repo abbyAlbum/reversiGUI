@@ -45,7 +45,7 @@ public class BoardController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        SettingsReader sr = new SettingsReader("./src/Settings.txt");
+        SettingsReader sr = new SettingsReader("Settings.txt");
         sr.readFile();
         Integer counter = 0;
         GuiBoard gb = new GuiBoard(new Board(sr.getSize()), sr.getColourOne(), sr.getColourTwo());

@@ -13,6 +13,8 @@ public class MenuController {
     private Button play;
     @FXML
     private Button settings;
+    @FXML
+    private Button exit;
 
     /**
      * Starts the playing of the game
@@ -51,5 +53,9 @@ public class MenuController {
         }
     }
 
-
+    @FXML
+    protected void exit() {
+        Stage stage = (Stage) exit.getScene().getWindow();
+        stage.close();
+    }
 }
